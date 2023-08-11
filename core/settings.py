@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # third party apps
     'rest_framework',
     "corsheaders",
+    'drf_yasg',
 
     # local apps
     'tax_officer',
@@ -68,7 +69,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR.joinpath('templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -157,5 +158,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
-    "DEFAULT_PAGINATION_CLASS": "utils.rest_framework.pagination.MyPagination",
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 15
 }
