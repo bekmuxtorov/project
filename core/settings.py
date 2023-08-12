@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'drf_yasg',
 
     # local apps
+    'account',
     'tax_officer',
     'karer',
 ]
@@ -161,3 +162,5 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 15
 }
+
+AUTH_USER_MODEL = 'account.Account'
