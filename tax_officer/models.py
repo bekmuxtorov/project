@@ -7,6 +7,12 @@ DOCUMENT_TYPES = (
 )
 
 
+REASON_VIOLATION = (
+    ('not_entered', 'Ma\'lumot kiritilmagan'),
+    ('entered_incorrect', 'Ma\'lumot notog\'ri kiritilgan')
+)
+
+
 class Violation(models.Model):
     tax_officer = models.ForeignKey(
         to="account.Account",
@@ -48,6 +54,12 @@ class Violation(models.Model):
         verbose_name="Cargo type",
         on_delete=models.CASCADE,
         related_name="violations"
+    )
+    reason_violation = models.CharField(
+        verbose_name="Reason violation",
+        choices=REASON_VIOLATION,
+        max_length=17,
+        blank=True,
     )
     cargo_date = models.DateTimeField(
         verbose_name="The time the cargo was picked up"

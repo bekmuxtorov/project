@@ -8,7 +8,7 @@ from .models import Violation
 class ViolationAdmin(admin.ModelAdmin):
     list_display = (
         'driver_name', 'id', 'tax_officer',
-        'car_number', 'location', 'cargo_type', 'cargo_date'
+        'car_number', 'reason_violation', 'location', 'cargo_type', 'cargo_date'
     )
     search_fields = (
         'tax_officer__full_name', 'driver_name',
