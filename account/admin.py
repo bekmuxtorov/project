@@ -1,9 +1,10 @@
 from django.contrib import admin
 from .models import Account, Region
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 
 @admin.register(Account)
-class AccountAdmin(admin.ModelAdmin):
+class AccountAdmin(BaseUserAdmin):
     list_display = ('username', 'full_name', 'type',
                     'phone_number', 'working_region')
     list_filter = ('type', 'working_region')
