@@ -1,20 +1,22 @@
 from django.contrib import admin
-from .models import Karer, Order
-
-# Register your models here.
+from .models import Order, CargoType
 
 
-@admin.register(Karer)
-class KarerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'id', 'phone_number', 'user')
-    ordering = ('name', 'id', 'phone_number')
-    search_fields = ('name', 'phone_number')
+@admin.register(CargoType)
+class CargoTypeAdmin(admin.ModelAdmin):
+    list_display = ('name', 'created_at')
+    search_fields = ('name', )
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('driver_name', 'id', 'karer',
-                    'driver_phone_number', 'car_number', 'location')
-    ordering = ('karer', 'driver_name')
-    search_fields = ('karer__name', 'driver_name',
-                     'driver_phone_number', 'car_number')
+    list_display = (
+        'driver_name', 'id', 'karer', 'cargo_type',
+        'driver_phone_number', 'car_number', 'location'
+    )
+    list_filter = ('cargo_type__name', 'karer__karer_name')
+    ordering = ('date', 'id')
+    search_fields = (
+        'karer__karer_name', 'driver_name',
+        'driver_phone_number', 'car_number'
+    )

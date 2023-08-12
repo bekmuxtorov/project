@@ -5,39 +5,6 @@ from . import models
 from . import serializers
 
 
-# Karer Create Api View
-class KarerCreateAPIView(generics.CreateAPIView):
-    queryset = models.Karer.objects.all()
-    serializer_class = serializers.KarerSerializer
-
-
-# Karer List API View
-class KarerListAPIView(generics.ListAPIView):
-    queryset = models.Karer.objects.all()
-    serializer_class = serializers.KarerSerializer
-
-
-# Karer Detail API View
-class KarerDetailAPIView(generics.RetrieveAPIView):
-    queryset = models.Karer.objects.all()
-    serializer_class = serializers.KarerSerializer
-
-
-# Karer Update API View
-class KarerUpdateAPIView(generics.UpdateAPIView):
-    queryset = models.Karer.objects.all()
-    serializer_class = serializers.KarerSerializer
-
-
-# Karer Delete API View
-class KarerDeleteAPIView(generics.DestroyAPIView):
-    queryset = models.Karer.objects.all()
-    serializer_class = serializers.KarerSerializer
-
-
-# ************************************************************************************************ #
-
-
 # Order Create Api View
 class OrderCreateAPIView(generics.CreateAPIView):
     queryset = models.Order.objects.all()

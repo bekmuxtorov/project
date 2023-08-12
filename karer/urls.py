@@ -3,13 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    # Karers
-    path('karers/create/', views.KarerCreateAPIView.as_view()),
-    path('karers/', views.KarerListAPIView.as_view()),
-    path('karers/<int:pk>/', views.KarerDetailAPIView.as_view()),
-    path('karers/<int:pk>/update/', views.KarerUpdateAPIView.as_view()),
-    path('karers/<int:pk>/delete/', views.KarerDeleteAPIView.as_view()),
-
     # Order
     path('orders/create/', views.OrderCreateAPIView.as_view()),
     path('orders/', views.OrderListAPIView.as_view()),

@@ -1,11 +1,5 @@
 from rest_framework import serializers
-from .models import Karer, Order
-
-
-class KarerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Karer
-        fields = '__all__'
+from .models import Order
 
 
 class OrderSerializer(serializers.ModelSerializer):
