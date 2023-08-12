@@ -5,39 +5,6 @@ from . import models
 from . import serializers
 
 
-# Profile Create Api View
-class ProfileCreateAPIView(generics.CreateAPIView):
-    queryset = models.Profile.objects.all()
-    serializer_class = serializers.ProfileSerializer
-
-
-# Profile List API View
-class ProfileListAPIView(generics.ListAPIView):
-    queryset = models.Profile.objects.all()
-    serializer_class = serializers.ProfileSerializer
-
-
-# Profile Detail API View
-class ProfileDetailAPIView(generics.RetrieveAPIView):
-    queryset = models.Profile.objects.all()
-    serializer_class = serializers.ProfileSerializer
-
-
-# Profile Update API View
-class ProfileUpdateAPIView(generics.UpdateAPIView):
-    queryset = models.Profile.objects.all()
-    serializer_class = serializers.ProfileSerializer
-
-
-# Profile Delete API View
-class ProfileDeleteAPIView(generics.DestroyAPIView):
-    queryset = models.Profile.objects.all()
-    serializer_class = serializers.ProfileSerializer
-
-
-# ************************************************************************************************ #
-
-
 # Violation Create Api View
 class ViolationCreateAPIView(generics.CreateAPIView):
     queryset = models.Violation.objects.all()

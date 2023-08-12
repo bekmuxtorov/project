@@ -1,49 +1,15 @@
 from django.db import models
 
-# Create your models here.
 
-
-class Profile(models.Model):
-    full_name = models.CharField(
-        verbose_name="Tax officer's name, surname, patronymic",
-        max_length=150
-    )
-    passport_or_id_number = models.CharField(
-        verbose_name="Passport or ID number",
-        max_length=50
-    )
-    passport_or_id_file = models.FileField(
-        verbose_name="Passport or ID file",
-        upload_to="tax_officers/profile/"
-    )
-    position = models.CharField(
-        verbose_name="The position of tax officer",
-        max_length=100
-    )
-    working_region = models.CharField(
-        verbose_name="Region of the tax officer",
-        max_length=50
-    )
-    phone_number = models.CharField(
-        verbose_name="Phone number of the tax officer",
-        max_length=16
-    )
-    created_at = models.DateTimeField(
-        verbose_name="Date of creation",
-        auto_now_add=True
-    )
-
-    class Meta:
-        verbose_name = 'Tax officer profile'
-        verbose_name_plural = 'Tax officers profile'
-
-    def __str__(self):
-        return self.full_name
+DOCUMENT_TYPES = (
+    ('passport', 'Passport'),
+    ('document_id', 'ID')
+)
 
 
 class Violation(models.Model):
-    profile = models.ForeignKey(
-        to=Profile,
+    tax_officer = models.ForeignKey(
+        to="account.Account",
         verbose_name="Tax officer's profile",
         related_name="violations",
         on_delete=models.CASCADE
@@ -56,8 +22,13 @@ class Violation(models.Model):
         verbose_name="The phone number of the fined driver",
         max_length=16
     )
+    driver_passport_or_id = models.CharField(
+        choices=DOCUMENT_TYPES,
+        default='passport',
+        max_length=11
+    )
     driver_passport_or_id_number = models.CharField(
-        verbose_name="The passport or ID number of the fined driver",
+        verbose_name="Driver's passport or ID number",
         max_length=50
     )
     car_number = models.CharField(
@@ -72,12 +43,17 @@ class Violation(models.Model):
         verbose_name="The location of the fined driver",
         max_length=100
     )
-    cargo_type = models.CharField(
+    cargo_type = models.ForeignKey(
+        to="karer.CargoType",
         verbose_name="Cargo type",
-        max_length=100
+        on_delete=models.CASCADE,
+        related_name="violations"
     )
-    date = models.DateField(
-        verbose_name="Date of violation"
+    cargo_date = models.DateTimeField(
+        verbose_name="The time the cargo was picked up"
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
     )
 
     class Meta:
@@ -85,4 +61,4 @@ class Violation(models.Model):
         verbose_name_plural = 'Violations'
 
     def __str__(self):
-        return self.driver_name
+        return self.tax_officer.full_name
