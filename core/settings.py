@@ -156,11 +156,19 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # rest framework
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 15
 }
 
 AUTH_USER_MODEL = 'account.Account'
+
+# infobip settings
+INFOBIP_BASE_URL = env.str('INFOBIP_BASE_URL')
+INFOBIP_API_KEY = env.str('INFOBIP_API_KEY')

@@ -1,22 +1,50 @@
 from django.contrib import admin
-from .models import Account, Region
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from .models import Account, Region
+from .forms import UserChangeForm, UserCreationForm
 
 
 @admin.register(Account)
 class AccountAdmin(BaseUserAdmin):
-    list_display = ('username', 'full_name', 'type',
-                    'phone_number', 'working_region')
-    list_filter = ('type', 'working_region')
-    search_fields = ('full_name', 'phone_number', 'position', 'karer_name')
+    form = UserChangeForm
+    add_form = UserCreationForm
 
+    list_display = (
+        "phone_number",
+        "type",
+        "created_at",
+        "is_phone_verified",
+        "is_staff"
+    )
+    list_filter = ("is_staff", "is_superuser",
+                   "groups", "type", "working_region")
     fieldsets = (
         (
-            None,
+            "General data",
             {
                 "fields": (
-                    'username', 'full_name', 'type',
-                    'phone_number', 'working_region'
+                    "type",
+                    "phone_number",
+                )
+            },
+        ),
+        (
+            "Karer",
+            {
+                "fields": (
+                    "karer_name",
+                )
+            },
+        ),
+        (
+            "Tax officer",
+            {
+                "fields": (
+                    "full_name",
+                    "passport_or_id",
+                    "password_or_id_number",
+                    "position",
+                    "working_region",
                 )
             },
         ),
@@ -25,22 +53,29 @@ class AccountAdmin(BaseUserAdmin):
             {"fields": ("is_staff", "is_superuser",
                         "groups", "user_permissions")},
         ),
-        ("Important dates", {"fields": ("last_login", "date_joined")}),
+        ("Important dates", {
+         "fields": ("last_login", 'sms_code', 'is_phone_verified')}),
     )
     add_fieldsets = (
         (
             None,
             {
                 "classes": ("wide",),
-                "fields": ("username", "password1", "password2"),
+                "fields": ("type", "phone_number", "password1", "password2"),
             },
         ),
     )
-    ordering = ("username",)
+    search_fields = ("phone_number", "chat_id", "full_name")
+    ordering = ("type",)
     filter_horizontal = (
         "groups",
         "user_permissions",
     )
+
+    def save_model(self, request, obj, form, change):
+        if not change:
+            obj.type = form.cleaned_data.get('type')
+        super().save_model(request, obj, form, change)
 
 
 @admin.register(Region)

@@ -3,3 +3,5 @@ environs==9.5.0
 djangorestframework==3.14.0
 django-cors-headers==4.2.0
 drf-yasg==1.21.7
+infobip-api-python-client==3.0.1
+djangorestframework-simplejwt==5.2.2

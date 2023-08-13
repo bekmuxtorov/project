@@ -1,5 +1,6 @@
+from .managers import UserManager
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 DOCUMENT_TYPES = (
     ('passport', 'Passport'),
@@ -23,11 +24,17 @@ class Region(models.Model):
         return self.name
 
 
-class Account(AbstractUser):
+class Account(AbstractBaseUser, PermissionsMixin):
     type = models.CharField(
         choices=ACCOUNT_TYPES,
         default='karer',
         max_length=11
+    )
+    phone_number = models.CharField(
+        verbose_name="phone number",
+        max_length=20,
+        unique=True,
+        blank=True
     )
     full_name = models.CharField(
         verbose_name="Full name",
@@ -37,11 +44,6 @@ class Account(AbstractUser):
     karer_name = models.CharField(
         verbose_name="Karer name",
         max_length=100,
-        blank=True
-    )
-    phone_number = models.CharField(
-        verbose_name="Phone Number",
-        max_length=20,
         blank=True
     )
     passport_or_id = models.CharField(
@@ -66,10 +68,34 @@ class Account(AbstractUser):
         null=True,
         related_name="accounts"
     )
+    sms_code = models.CharField(
+        verbose_name="sms code",
+        max_length=6,
+        blank=True
+    )
+    is_phone_verified = models.BooleanField(
+        verbose_name='Is phone verified',
+        default=False
+    )
+    is_staff = models.BooleanField(
+        verbose_name="is staff",
+        default=False
+    )
     created_at = models.DateTimeField(
         verbose_name="Date of creation",
         auto_now_add=True
     )
+    updated_at = models.DateTimeField(
+        verbose_name="update profile",
+        auto_now=True,
+        blank=True,
+        null=True
+    )
+
+    USERNAME_FIELD = 'phone_number'
+    REQUIRED_FIELDS = ['full_name']
+
+    objects = UserManager()
 
     def __str__(self):
-        return self.username
+        return self.phone_number
