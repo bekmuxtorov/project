@@ -20,6 +20,23 @@ class CargoType(models.Model):
         return self.name
 
 
+class CargoUnit(models.Model):
+    name = models.CharField(
+        verbose_name="Name",
+        max_length=50,
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+        verbose_name = 'Cargo unit'
+        verbose_name_plural = 'Cargo units'
+
+    def __str__(self):
+        return self.name
+
+
 class Order(models.Model):
     karer = models.ForeignKey(
         to='account.Account',
@@ -60,6 +77,20 @@ class Order(models.Model):
         to=CargoType,
         on_delete=models.CASCADE,
         related_name='orders',
+    )
+    cargo_unit = models.ForeignKey(
+        to=CargoUnit,
+        on_delete=models.CASCADE,
+        related_name='orders',
+        blank=True,
+        null=True
+    )
+    cargo_value = models.DecimalField(
+        verbose_name="Cargo value",
+        decimal_places=2,
+        max_digits=15,
+        blank=True,
+        null=True
     )
     weight = models.CharField(
         verbose_name="Weight",

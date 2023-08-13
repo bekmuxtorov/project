@@ -1,5 +1,11 @@
 from django.contrib import admin
-from .models import Order, CargoType
+from .models import Order, CargoType, CargoUnit
+
+
+@admin.register(CargoUnit)
+class CargoUnitAdmin(admin.ModelAdmin):
+    list_display = ('name', 'id', 'created_at')
+    ordering = ('created_at', )
 
 
 @admin.register(CargoType)
@@ -12,9 +18,9 @@ class CargoTypeAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
         'driver_name', 'id', 'karer', 'cargo_type',
-        'driver_phone_number', 'car_number', 'location'
+        'cargo_unit', 'car_number', 'location'
     )
-    list_filter = ('cargo_type__name', 'karer__karer_name')
+    list_filter = ('cargo_type__name', 'karer__karer_name', 'cargo_unit')
     ordering = ('date', 'id')
     search_fields = (
         'karer__karer_name', 'driver_name',
