@@ -21,7 +21,7 @@ API_KEY = settings.INFOBIP_API_KEY
 
 def sent_sms_to_phone_number(phone_number: str):
     SENDER = "InfoSMS"
-    RECIPIENT = phone_number
+    RECIPIENT = phone_number.replace('+', '')
     code = create_code()
     MESSAGE_TEXT = f"Your verification PIN is: {code}"
 

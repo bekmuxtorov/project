@@ -20,7 +20,7 @@ from .sent_sms_infobip import sent_sms_to_phone_number
         type=openapi.TYPE_OBJECT,
         required=['phone_number', 'password'],
         properties={
-            'phone_number': openapi.Schema(type=openapi.TYPE_STRING, description='Phone number'),
+            'phone_number': openapi.Schema(type=openapi.TYPE_STRING, description='as shown: +998901234567'),
             'password': openapi.Schema(type=openapi.TYPE_STRING, description='Password'),
         }
     ),
@@ -66,11 +66,11 @@ def sent_verification_code(request):
         )
 
     phone_number = data.get('phone_number')
-    if len(phone_number) != 12:
+    if len(phone_number) != 13:
         return Response(
             {
                 'status': 400,
-                'message': "The phone number must be entered as follows: 901234567"
+                'message': "The phone number must be entered as follows: +998901234567"
             }
         )
 
@@ -107,7 +107,7 @@ def sent_verification_code(request):
         required=['phone_number', 'sms_code'],
         type=openapi.TYPE_OBJECT,
         properties={
-            'phone_number': openapi.Schema(type=openapi.TYPE_STRING, description='Phone number'),
+            'phone_number': openapi.Schema(type=openapi.TYPE_STRING, description='Phone number: as shown +998901234567'),
             'sms_code': openapi.Schema(type=openapi.TYPE_STRING, description='Password'),
         }
     ),
@@ -152,11 +152,11 @@ def verify_code(request):
             }
         )
     phone_number = data.get('phone_number')
-    if len(phone_number) != 12:
+    if len(phone_number) != 13:
         return Response(
             {
                 'status': 400,
-                'message': "The phone number must be entered as follows: 998901234567"
+                'message': "The phone number must be entered as follows: +998901234567"
             }
         )
 
@@ -193,7 +193,7 @@ class KarerRegisterAPIView(APIView):
             required=['phone_number', 'karer_name', 'password', 'password2'],
             type=openapi.TYPE_OBJECT,
             properties={
-                'phone_number': openapi.Schema(type=openapi.TYPE_STRING, description="Phone number"),
+                'phone_number': openapi.Schema(type=openapi.TYPE_STRING, description="Phone number: as shown +998901234567"),
                 'karer_name': openapi.Schema(type=openapi.TYPE_STRING, description="Karer name"),
                 'password': openapi.Schema(type=openapi.TYPE_STRING, description='Password'),
                 'password2': openapi.Schema(type=openapi.TYPE_STRING, description='Password'),
@@ -252,7 +252,7 @@ class TaxOfficerRegisterAPIView(APIView):
             ],
             type=openapi.TYPE_OBJECT,
             properties={
-                'phone_number': openapi.Schema(type=openapi.TYPE_STRING, description="Phone number"),
+                'phone_number': openapi.Schema(type=openapi.TYPE_STRING, description="Phone number: as shown +998901234567"),
                 'full_name': openapi.Schema(type=openapi.TYPE_STRING, description="Full name"),
                 'passport_or_id': openapi.Schema(type=openapi.TYPE_STRING, enum=['passport', 'document_id'], description='passport_or_id'),
                 'password_or_id_number': openapi.Schema(type=openapi.TYPE_STRING, description="Password or id number"),

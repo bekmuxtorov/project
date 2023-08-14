@@ -1,6 +1,9 @@
-from .managers import UserManager
+import re
 from django.db import models
+from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+
+from .managers import UserManager
 
 DOCUMENT_TYPES = (
     ('passport', 'Passport'),
@@ -34,7 +37,13 @@ class Account(AbstractBaseUser, PermissionsMixin):
         verbose_name="phone number",
         max_length=20,
         unique=True,
-        blank=True
+        blank=True,
+        validators=[
+            RegexValidator(
+                regex=r'^\+998\d{9}$',
+                message='Invalid phone number. Please enter in the format +998901234567'
+            ),
+        ]
     )
     full_name = models.CharField(
         verbose_name="Full name",
@@ -99,3 +108,5 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.phone_number
+
+    
