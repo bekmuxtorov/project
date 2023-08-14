@@ -1,10 +1,17 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from .models import Account, Region
+from rest_framework.authtoken.models import TokenProxy as Token
+from rest_framework.authtoken.admin import TokenAdmin
+
+from .models import Account, Region, TokenProxy
 from .forms import UserChangeForm, UserCreationForm
 
 admin.site.site_header = "Karer Project Admin"
 admin.site.index_title = 'Karer Site Administration'
+
+admin.site.unregister(Token)
+
+admin.site.register(TokenProxy, TokenAdmin)
 
 
 @admin.register(Account)

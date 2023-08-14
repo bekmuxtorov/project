@@ -1,7 +1,8 @@
-import re
 from django.db import models
 from django.core.validators import RegexValidator
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+
+from rest_framework.authtoken.models import Token
 
 from .managers import UserManager
 
@@ -15,6 +16,13 @@ ACCOUNT_TYPES = (
     ('karer', 'Karer'),
     ('tax_officer', 'Tax officer')
 )
+
+
+class TokenProxy(Token):
+    class Meta:
+        proxy = True
+        verbose_name = "Token"
+        verbose_name_plural = "Tokens"
 
 
 class Region(models.Model):
@@ -108,5 +116,3 @@ class Account(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.phone_number
-
-    

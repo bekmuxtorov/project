@@ -1,9 +1,10 @@
-from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.authtoken.models import Token
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
@@ -228,10 +229,9 @@ class KarerRegisterAPIView(APIView):
         if serializer.is_valid():
             user = serializer.save()
 
-            refresh = RefreshToken.for_user(user)
+            token = Token.objects.get_or_create(user=user)[0].key
             response_data = {
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
+                'token': token,
                 'user': serializer.data,
             }
 
@@ -294,15 +294,78 @@ class TaxOfficerRegisterAPIView(APIView):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            refresh = RefreshToken.for_user(user)
+            token = Token.objects.get_or_create(user=user)[0].key
             response_data = {
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
+                'token': token,
                 'user': serializer.data,
             }
 
             return Response(response_data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserLoginApiView(APIView):
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        operation_description="Login user",
+        request_body=openapi.Schema(
+            required=['phone_number', 'password'],
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'phone_number': openapi.Schema(type=openapi.TYPE_STRING, description='Phone number'),
+                'password': openapi.Schema(type=openapi.TYPE_STRING, description='Password'),
+            }
+        ),
+        responses={
+            200: openapi.Response(
+                description="User login",
+                examples={
+                    'application/json': {
+                        'id': 17,
+                        'phone_number': '+998901234567',
+                        'full_name': 'John Doe',
+                        'type': 'tax_officer',
+                        'token': 'jC4Z4OjK6QUlnw6PT-7A2yB6W0uh9jJf3MTZ_26P8'
+                    }
+                }
+            ),
+            400: openapi.Response(
+                description="Bad request",
+                examples={
+                    'application/json': {
+                        'error': 'Invalid credentials'
+                    }
+                }
+            )
+        }
+    )
+    def post(self, request):
+        phone_number = request.data.get('phone_number')
+        password = request.data.get('password')
+        user = authenticate(phone_number=phone_number, password=password)
+        if user:
+            user_data = {
+                'id': user.id,
+                'type': user.type,
+                'phone_number': user.phone_number,
+                'token': f"Token {Token.objects.get_or_create(user=user)[0].key}"
+            }
+
+            if user.type == 'karer':
+                user_data['karer_name'] = user.karer_name
+
+            elif user.type == "tax_officer":
+                user_data.update({
+                    'full_name': user.full_name,
+                    'passport_or_id': user.passport_or_id,
+                    'password_or_id_number': user.password_or_id_number,
+                    'position': user.position,
+                    'working_region': user.working_region.id,
+                })
+
+            return Response(user_data)
+        return Response({'error': 'Invalid credentials'}, status=400)
 
 
 # Region Create Api View
