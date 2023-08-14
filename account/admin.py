@@ -3,6 +3,9 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import Account, Region
 from .forms import UserChangeForm, UserCreationForm
 
+admin.site.site_header = "Karer Project Admin"
+admin.site.index_title = 'Karer Site Administration'
+
 
 @admin.register(Account)
 class AccountAdmin(BaseUserAdmin):
