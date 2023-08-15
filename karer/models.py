@@ -65,7 +65,7 @@ class Order(models.Model):
         verbose_name="Car number",
         max_length=50
     )
-    car_photo = models.FileField(
+    car_photo = models.ImageField(
         verbose_name="Car photo",
         upload_to="orders/car/"
     )
