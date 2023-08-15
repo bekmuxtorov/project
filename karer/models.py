@@ -94,7 +94,8 @@ class Order(models.Model):
     )
     weight = models.CharField(
         verbose_name="Weight",
-        max_length=150
+        max_length=150,
+        blank=True
     )
     date = models.DateField(
         auto_now_add=True
