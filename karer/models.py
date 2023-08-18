@@ -74,6 +74,11 @@ class Order(models.Model):
         max_length=100,
         blank=True
     )
+    direction = models.CharField(
+        verbose_name="Direction",
+        max_length=128,
+        blank=True
+    )
     location = models.CharField(
         verbose_name="Location",
         max_length=150
