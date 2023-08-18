@@ -24,7 +24,7 @@ class OrderCreateAPIView(generics.CreateAPIView):
 # Order List API View
 class OrderListAPIView(generics.ListAPIView):
     queryset = models.Order.objects.all()
-    serializer_class = serializers.OrderSerializer
+    serializer_class = serializers.OrderListSerializer
 
 
 # Order Detail API View
