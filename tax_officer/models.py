@@ -7,18 +7,17 @@ DOCUMENT_TYPES = (
 )
 
 
-REASON_VIOLATION = (
-    ('not_entered', 'Ma\'lumot kiritilmagan'),
-    ('entered_incorrect', 'Ma\'lumot notog\'ri kiritilgan')
-)
-
-
 class Violation(models.Model):
     tax_officer = models.ForeignKey(
         to="account.Account",
         verbose_name="Tax officer's profile",
         related_name="violations",
         on_delete=models.CASCADE
+    )
+    karer_name = models.CharField(
+        verbose_name="Karer name",
+        max_length=100,
+        blank=True
     )
     driver_name = models.CharField(
         verbose_name="The name of the fined driver",
@@ -45,6 +44,11 @@ class Violation(models.Model):
         verbose_name="Fined driver car photo",
         upload_to="tax_officers/violations/"
     )
+    car_brand = models.CharField(
+        verbose_name="Car brand",
+        max_length=100,
+        blank=True
+    )
     location = models.CharField(
         verbose_name="The location of the fined driver",
         max_length=100
@@ -57,8 +61,7 @@ class Violation(models.Model):
     )
     reason_violation = models.CharField(
         verbose_name="Reason violation",
-        choices=REASON_VIOLATION,
-        max_length=17,
+        max_length=100,
         blank=True,
     )
     cargo_date = models.DateTimeField(
