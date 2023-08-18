@@ -103,3 +103,8 @@ class Order(models.Model):
 
     def __str__(self) -> str:
         return self.driver_name
+
+    def delete(self, *args, **kwargs):
+        if self.car_photo:
+            self.car_photo.delete()
+        super().delete(*args, **kwargs)

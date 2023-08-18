@@ -26,3 +26,11 @@ class OrderAdmin(admin.ModelAdmin):
         'karer__karer_name', 'driver_name',
         'driver_phone_number', 'car_number'
     )
+
+    def delete_queryset(self, request, queryset) -> None:
+        for obj in queryset:
+            try:
+                obj.car_photo.delete()
+            except FileExistsError:
+                pass
+        return super().delete_queryset(request, queryset)

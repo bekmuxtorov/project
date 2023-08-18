@@ -15,4 +15,12 @@ class ViolationAdmin(admin.ModelAdmin):
         'driver_phone_number', 'car_number', 'location'
     )
     list_filter = ('tax_officer__full_name', 'cargo_type')
-    ordering = ('created_at', 'id')
+    ordering = ('-created_at', '-id')
+
+    def delete_queryset(self, request, queryset) -> None:
+        for obj in queryset:
+            try:
+                obj.car_photo.delete()
+            except FileExistsError:
+                pass
+        return super().delete_queryset(request, queryset)

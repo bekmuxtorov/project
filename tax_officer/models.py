@@ -74,3 +74,8 @@ class Violation(models.Model):
 
     def __str__(self):
         return self.tax_officer.full_name
+
+    def delete(self, *args, **kwargs):
+        if self.car_photo:
+            self.car_photo.delete()
+        super().delete(*args, **kwargs)
