@@ -78,12 +78,10 @@ class Account(AbstractBaseUser, PermissionsMixin):
         max_length=50,
         blank=True
     )
-    working_region = models.ForeignKey(
-        to=Region,
-        on_delete=models.SET_NULL,
+    working_region = models.CharField(
+        verbose_name="Region",
+        max_length=100,
         blank=True,
-        null=True,
-        related_name="accounts"
     )
     sms_code = models.CharField(
         verbose_name="sms code",
