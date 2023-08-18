@@ -65,8 +65,6 @@ class TaxOfficerRegisterSerializer(serializers.ModelSerializer):
         passport_or_id = validated_data.get('passport_or_id')
         password_or_id_number = validated_data.get('password_or_id_number')
         position = validated_data.get('position')
-        print('asdfasfd')
-        print(validated_data.get('working_region'))
         working_region = validated_data.get('working_region')
         password = validated_data.get('password')
         password2 = validated_data.get('password2')
@@ -88,3 +86,9 @@ class TaxOfficerRegisterSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({
                 'error': 'Both passwords do not match'
             })
+
+
+class KarerSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    phone_number = serializers.CharField(max_length=20)
+    karer_name = serializers.CharField(max_length=100)

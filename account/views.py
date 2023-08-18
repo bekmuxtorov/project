@@ -368,6 +368,18 @@ class UserLoginApiView(APIView):
         return Response({'error': 'Invalid credentials'}, status=400)
 
 
+class KarerDetailAPIView(generics.RetrieveAPIView):
+    permission_classes = [AllowAny]
+    queryset = models.Account.objects.filter(type='karer')
+    serializer_class = serializers.KarerSerializer
+
+
+class KarerListAPIView(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    queryset = models.Account.objects.filter(type='karer').order_by('-karer_name')
+    serializer_class = serializers.KarerSerializer
+
+
 # Region Create Api View
 class RegionCreateAPIView(generics.CreateAPIView):
     queryset = models.Region.objects.all()

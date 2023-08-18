@@ -7,11 +7,17 @@ urlpatterns = [
     path('sent_code/', views.sent_verification_code),
     path('verify_code/', views.verify_code),
 
-    # Register
+    # Login
     path('auth/login/', views.UserLoginApiView.as_view(), name='login_view'),
 
-    path('auth/register/karer/', views.KarerRegisterAPIView.as_view()),
+    # Tax officer
     path('auth/register/tax_officer/', views.TaxOfficerRegisterAPIView.as_view()),
+
+    # Karer
+    path('auth/register/karer/', views.KarerRegisterAPIView.as_view()),
+    path('karer/<int:pk>/', views.KarerDetailAPIView.as_view()),
+    path('karer/by_name/', views.KarerListAPIView.as_view()),
+
     # Region
     path('regions/create/', views.RegionCreateAPIView.as_view()),
     path('regions/', views.RegionListAPIView.as_view()),
