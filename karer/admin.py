@@ -21,7 +21,7 @@ class OrderAdmin(admin.ModelAdmin):
         'cargo_unit', 'car_number', 'location'
     )
     list_filter = ('cargo_type__name', 'karer__karer_name', 'cargo_unit')
-    ordering = ('date', 'id')
+    ordering = ('-date', '-id')
     search_fields = (
         'karer__karer_name', 'driver_name',
         'driver_phone_number', 'car_number'

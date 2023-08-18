@@ -69,6 +69,11 @@ class Order(models.Model):
         verbose_name="Car photo",
         upload_to="orders/car/"
     )
+    car_brand = models.CharField(
+        verbose_name="Car brand",
+        max_length=100,
+        blank=True
+    )
     location = models.CharField(
         verbose_name="Location",
         max_length=150
