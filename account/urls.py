@@ -14,9 +14,9 @@ urlpatterns = [
     path('auth/register/tax_officer/', views.TaxOfficerRegisterAPIView.as_view()),
 
     # Karer
-    path('auth/register/karer/', views.KarerRegisterAPIView.as_view()),
+    path('karer/', views.KarerListAPIView.as_view()),
     path('karer/<int:pk>/', views.KarerDetailAPIView.as_view()),
-    path('karer/by_name/', views.KarerListAPIView.as_view()),
+    path('auth/register/karer/', views.KarerRegisterAPIView.as_view()),
 
     # Region
     path('regions/create/', views.RegionCreateAPIView.as_view()),

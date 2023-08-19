@@ -376,7 +376,7 @@ class KarerDetailAPIView(generics.RetrieveAPIView):
 
 class KarerListAPIView(generics.ListAPIView):
     permission_classes = [AllowAny]
-    queryset = models.Account.objects.filter(type='karer').order_by('-karer_name')
+    queryset = models.Account.objects.filter(type='karer')
     serializer_class = serializers.KarerSerializer
 
 
