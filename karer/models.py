@@ -74,6 +74,18 @@ class Order(models.Model):
         max_length=100,
         blank=True
     )
+    trailer = models.CharField(
+        verbose_name="Trailer",
+        max_length=100,
+        blank=True
+    )
+    trailer_weight = models.DecimalField(
+        verbose_name="Trailer weight",
+        decimal_places=2,
+        max_digits=15,
+        blank=True,
+        null=True
+    )
     direction = models.CharField(
         verbose_name="Direction",
         max_length=128,
@@ -101,11 +113,6 @@ class Order(models.Model):
         max_digits=15,
         blank=True,
         null=True
-    )
-    weight = models.CharField(
-        verbose_name="Weight",
-        max_length=150,
-        blank=True
     )
     date = models.DateField(
         auto_now_add=True
