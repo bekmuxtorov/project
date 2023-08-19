@@ -361,7 +361,7 @@ class UserLoginApiView(APIView):
                     'passport_or_id': user.passport_or_id,
                     'password_or_id_number': user.password_or_id_number,
                     'position': user.position,
-                    'working_region': user.working_region.id,
+                    'working_region': user.working_region,
                 })
 
             return Response(user_data)
