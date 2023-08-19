@@ -56,4 +56,4 @@ class OrderSerializer(serializers.ModelSerializer):
 class OrderListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        exclude = ['car_photo', 'weight']
+        exclude = ['car_photo',]
