@@ -114,6 +114,11 @@ class Order(models.Model):
         blank=True,
         null=True
     )
+    status = models.CharField(
+        verbose_name="Status Order",
+        max_length=100,
+        blank=True
+    )
     date = models.DateField(
         auto_now_add=True
     )

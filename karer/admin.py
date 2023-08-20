@@ -18,7 +18,7 @@ class CargoTypeAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
         'driver_name', 'id', 'karer', 'cargo_type',
-        'cargo_unit', 'car_number', 'location'
+        'cargo_unit', 'car_number', 'location', 'status'
     )
     list_filter = ('cargo_type__name', 'karer__karer_name', 'cargo_unit')
     ordering = ('-date', '-id')
