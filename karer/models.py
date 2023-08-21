@@ -119,6 +119,10 @@ class Order(models.Model):
         max_length=100,
         blank=True
     )
+    violated = models.BooleanField(
+        verbose_name="Violated",
+        default=False
+    )
     date = models.DateField(
         auto_now_add=True
     )
