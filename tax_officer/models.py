@@ -53,11 +53,10 @@ class Violation(models.Model):
         verbose_name="The location of the fined driver",
         max_length=100
     )
-    cargo_type = models.ForeignKey(
-        to="karer.CargoType",
+    cargo_type = models.CharField(
         verbose_name="Cargo type",
-        on_delete=models.CASCADE,
-        related_name="violations"
+        max_length=100,
+        blank=True
     )
     reason_violation = models.CharField(
         verbose_name="Reason violation",

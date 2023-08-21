@@ -8,19 +8,13 @@ class CargoUnitAdmin(admin.ModelAdmin):
     ordering = ('created_at', )
 
 
-@admin.register(CargoType)
-class CargoTypeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'created_at')
-    search_fields = ('name', )
-
-
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
         'driver_name', 'id', 'karer', 'cargo_type',
         'cargo_unit', 'car_number', 'location', 'status'
     )
-    list_filter = ('cargo_type__name', 'karer__karer_name', 'cargo_unit')
+    list_filter = ('cargo_type', 'karer__karer_name', 'cargo_unit')
     ordering = ('-date', '-id')
     search_fields = (
         'karer__karer_name', 'driver_name',

@@ -95,10 +95,10 @@ class Order(models.Model):
         verbose_name="Location",
         max_length=150
     )
-    cargo_type = models.ForeignKey(
-        to=CargoType,
-        on_delete=models.CASCADE,
-        related_name='orders',
+    cargo_type = models.CharField(
+        verbose_name="Cargo type",
+        max_length=100,
+        blank=True
     )
     cargo_unit = models.ForeignKey(
         to=CargoUnit,
