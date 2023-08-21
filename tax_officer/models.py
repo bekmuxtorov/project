@@ -64,6 +64,10 @@ class Violation(models.Model):
         max_length=100,
         blank=True,
     )
+    is_updated = models.BooleanField(
+        verbose_name="Is updated",
+        default=False
+    )
     cargo_date = models.DateTimeField(
         verbose_name="The time the cargo was picked up"
     )
