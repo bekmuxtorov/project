@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from . import models
-from ..karer.serializers import Base64ImageField
+from karer import serializers as general_serializers
 
 
 class ViolationSerializer(serializers.ModelSerializer):
-    car_photo = Base64ImageField(
+    car_photo = general_serializers.Base64ImageField(
         max_length=None, use_url=True,
     )
 
