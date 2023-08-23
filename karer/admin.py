@@ -11,14 +11,14 @@ class CargoUnitAdmin(admin.ModelAdmin):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
-        'driver_name', 'id', 'karer', 'cargo_type',
+        'driver_name', 'unique_number', 'karer', 'cargo_type',
         'cargo_unit', 'car_number', 'location', 'status'
     )
     list_filter = ('cargo_type', 'karer__karer_name', 'cargo_unit')
     ordering = ('-date', '-id')
     search_fields = (
         'karer__karer_name', 'driver_name',
-        'driver_phone_number', 'car_number'
+        'driver_phone_number', 'car_number', 'unique_number'
     )
 
     def delete_queryset(self, request, queryset) -> None:

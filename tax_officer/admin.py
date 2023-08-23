@@ -7,12 +7,12 @@ from .models import Violation
 @admin.register(Violation)
 class ViolationAdmin(admin.ModelAdmin):
     list_display = (
-        'driver_name', 'id', 'tax_officer',
-        'car_number', 'reason_violation', 'location', 'cargo_type', 'cargo_date'
+        'driver_name', 'unique_number', 'tax_officer',
+        'car_number', 'location', 'cargo_type', 'cargo_date'
     )
     search_fields = (
         'tax_officer__full_name', 'driver_name',
-        'driver_phone_number', 'car_number', 'location'
+        'driver_phone_number', 'car_number', 'location', 'unique_number'
     )
     list_filter = ('tax_officer__full_name', 'cargo_type')
     ordering = ('-created_at', '-id')

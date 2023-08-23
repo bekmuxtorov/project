@@ -1,10 +1,20 @@
 from django.db import models
+import random
 
 
 DOCUMENT_TYPES = (
     ('passport', 'Passport'),
     ('document_id', 'ID')
 )
+
+
+def create_new_ref_number():
+    not_unique = True
+    while not_unique:
+        unique_ref = random.randint(100000, 999999)
+        if not Violation.objects.filter(unique_number=unique_ref):
+            not_unique = False
+            return unique_ref
 
 
 class Violation(models.Model):
@@ -72,6 +82,11 @@ class Violation(models.Model):
     )
     created_at = models.DateTimeField(
         auto_now_add=True
+    )
+    unique_number = models.IntegerField(
+        unique=True,
+        blank=True,
+        default=create_new_ref_number
     )
 
     class Meta:

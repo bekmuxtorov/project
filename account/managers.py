@@ -6,16 +6,16 @@ from django.core.validators import RegexValidator
 class UserManager(BaseUserManager):
     phone_number_validator = RegexValidator(
         regex=r'^\+998\d{9}$',
-        message='Invalid phone number. Please enter in the format +998901234567'
+        message='Invalid phone number. Please enter in the format +998909234567'
     )
 
     def create_user(self, phone_number, password, **extra_fields):
         if not phone_number:
             raise ValueError(_("The phone number must be set"))
 
-        if not self.phone_number_validator(phone_number):
+        if self.phone_number_validator(phone_number):
             raise ValueError(
-                'Invalid phone number. Please enter in the format +998901234567')
+                'Invalid phone number. Please enter in the format +998909234567')
 
         user = self.model(phone_number=phone_number, **extra_fields)
         user.set_password(password)

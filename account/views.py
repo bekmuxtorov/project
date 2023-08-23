@@ -257,7 +257,7 @@ class TaxOfficerRegisterAPIView(APIView):
                 'passport_or_id': openapi.Schema(type=openapi.TYPE_STRING, enum=['passport', 'document_id'], description='passport_or_id'),
                 'password_or_id_number': openapi.Schema(type=openapi.TYPE_STRING, description="Password or id number"),
                 'position': openapi.Schema(type=openapi.TYPE_STRING, description="Position"),
-                'working_region': openapi.Schema(type=openapi.TYPE_NUMBER, enum=list(models.Region.objects.values_list('name', flat=True)), description="Working Region"),
+                'working_region': openapi.Schema(type=openapi.TYPE_STRING, description="Working Region"),
                 'password': openapi.Schema(type=openapi.TYPE_STRING, description='Password'),
                 'password2': openapi.Schema(type=openapi.TYPE_STRING, description='Password'),
             }
