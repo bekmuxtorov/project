@@ -47,6 +47,7 @@ class OrderSerializer(serializers.ModelSerializer):
     car_photo = Base64ImageField(
         max_length=None, use_url=True,
     )
+    date = serializers.DateTimeField(format="%d.%m.%Y %H:%M")
 
     class Meta:
         model = Order
@@ -54,6 +55,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class OrderListSerializer(serializers.ModelSerializer):
+    date = serializers.DateTimeField(format="%d.%m.%Y %H:%M")
+
     class Meta:
         model = Order
         exclude = ['car_photo',]
