@@ -132,7 +132,7 @@ class Order(models.Model):
         verbose_name="Violated",
         default=False
     )
-    date = models.DateField(
+    date = models.DateTimeField(
         auto_now_add=True
     )
     unique_number = models.IntegerField(
