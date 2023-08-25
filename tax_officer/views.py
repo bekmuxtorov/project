@@ -1,8 +1,21 @@
-from django.shortcuts import render
 from rest_framework import generics
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from . import models
 from . import serializers
+
+
+@api_view(['GET',])
+@permission_classes([IsAuthenticated])
+def violation_by_unique_number(request, unique_number):
+    try:
+        violation = models.Violation.objects.get(unique_number=unique_number)
+        serializer = serializers.ViolationSerializer(violation)
+        return Response(serializer.data)
+    except:
+        return Response({'error': 'No object matching this unique_number exists'}, status=400)
 
 
 # Violation Create Api View
