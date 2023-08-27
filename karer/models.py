@@ -136,7 +136,6 @@ class Order(models.Model):
         auto_now_add=True
     )
     unique_number = models.IntegerField(
-        unique=True,
         blank=True,
         default=create_new_ref_number
     )

@@ -19,8 +19,8 @@ def orders_by_karer_id(request, karer_id):
 @permission_classes([IsAuthenticated])
 def orders_by_unique_number(request, unique_number):
     try:
-        order = models.Order.objects.get(unique_number=unique_number)
-        serializer = serializers.OrderSerializer(order)
+        order = models.Order.objects.filter(unique_number=unique_number)
+        serializer = serializers.OrderSerializer(order, many=True)
         return Response(serializer.data)
     except:
         return Response({'error': 'No object matching this unique_number exists'}, status=400)
