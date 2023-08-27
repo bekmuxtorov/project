@@ -11,8 +11,8 @@ from . import serializers
 @permission_classes([IsAuthenticated])
 def violation_by_unique_number(request, unique_number):
     try:
-        violation = models.Violation.objects.get(unique_number=unique_number)
-        serializer = serializers.ViolationSerializer(violation)
+        violation = models.Violation.objects.filter(unique_number=unique_number)
+        serializer = serializers.ViolationSerializer(violation, many=True)
         return Response(serializer.data)
     except:
         return Response({'error': 'No object matching this unique_number exists'}, status=400)
