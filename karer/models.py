@@ -132,6 +132,16 @@ class Order(models.Model):
         verbose_name="Violated",
         default=False
     )
+    stir = models.CharField(
+        verbose_name="Stir",
+        max_length=100,
+        blank=True
+    )
+    who = models.CharField(
+        verbose_name="Who",
+        max_length=100,
+        blank=True
+    )
     date = models.DateTimeField(
         auto_now_add=True
     )
