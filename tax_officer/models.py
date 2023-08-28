@@ -80,6 +80,16 @@ class Violation(models.Model):
     cargo_date = models.DateTimeField(
         verbose_name="The time the cargo was picked up"
     )
+    stir = models.CharField(
+        verbose_name="Stir",
+        max_length=100,
+        blank=True
+    )
+    who = models.CharField(
+        verbose_name="Who",
+        max_length=100,
+        blank=True
+    )
     created_at = models.DateTimeField(
         auto_now_add=True
     )
