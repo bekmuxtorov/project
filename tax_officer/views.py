@@ -21,7 +21,7 @@ def violation_by_unique_number(request, unique_number):
 # Violation Create Api View
 class ViolationCreateAPIView(generics.CreateAPIView):
     queryset = models.Violation.objects.all()
-    serializer_class = serializers.ViolationSerializer
+    serializer_class = serializers.ViolationCreateSerializer
 
 
 # Violation List API View
@@ -39,7 +39,7 @@ class ViolationDetailAPIView(generics.RetrieveAPIView):
 # Violation Update API View
 class ViolationUpdateAPIView(generics.UpdateAPIView):
     queryset = models.Violation.objects.all()
-    serializer_class = serializers.ViolationSerializer
+    serializer_class = serializers.ViolationCreateSerializer
 
 
 # Karer Delete API View

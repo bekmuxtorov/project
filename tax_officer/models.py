@@ -78,7 +78,9 @@ class Violation(models.Model):
         default=False
     )
     cargo_date = models.DateTimeField(
-        verbose_name="The time the cargo was picked up"
+        verbose_name="The time the cargo was picked up",
+        blank=True,
+        null=True
     )
     stir = models.CharField(
         verbose_name="Stir",

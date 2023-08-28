@@ -92,3 +92,10 @@ class KarerSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     phone_number = serializers.CharField(max_length=20)
     karer_name = serializers.CharField(max_length=100)
+
+
+class TaxOfficerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Account
+        exclude = ['type', 'karer_name', 'password',
+                   'last_login', 'is_superuser', 'groups', 'user_permissions']
